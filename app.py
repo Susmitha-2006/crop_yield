@@ -3,6 +3,17 @@ import pandas as pd
 import numpy as np
 import joblib
 
+# -----------------------------
+# Initialize session state
+# -----------------------------
+if "prediction" not in st.session_state:
+    st.session_state.prediction = None
+    st.session_state.irrigation = ""
+    st.session_state.fertilizer = ""
+
+# -----------------------------
+# Load model artifacts
+# -----------------------------
 model = joblib.load("lr_model.pkl")
 scaler = joblib.load("scaler.pkl")
 features = joblib.load("features.pkl")
@@ -78,15 +89,15 @@ if st.button("🔍 Predict Crop Yield"):
     if temp > 30:
         fertilizer += " Avoid fertilizer application during high temperature."
 
-    # ✅ STORE RESULTS
+    # Store results
     st.session_state.prediction = prediction
     st.session_state.irrigation = irrigation
     st.session_state.fertilizer = fertilizer
 
 # -----------------------------
-# DISPLAY RESULTS (ALWAYS)
+# DISPLAY RESULTS
 # -----------------------------
-if "prediction" in st.session_state:
+if st.session_state.prediction is not None:
     st.success(f"🌱 Predicted Crop Yield: {st.session_state.prediction:.2f} hg/ha")
     st.info(f"💧 Irrigation Recommendation: {st.session_state.irrigation}")
     st.info(f"🌿 Fertilizer Recommendation: {st.session_state.fertilizer}")
