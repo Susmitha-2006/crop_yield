@@ -70,6 +70,24 @@ input_scaled = scaler.transform(input_df)
 # Prediction
 # -----------------------------
 prediction = model.predict(input_scaled)[0]
+# -----------------------------
+# Irrigation Recommendation
+# -----------------------------
+recommendation = ""
+
+if rainfall < 800:
+    recommendation = "Low rainfall detected. Frequent irrigation is recommended."
+elif rainfall < 1200:
+    recommendation = "Moderate rainfall. Maintain regular irrigation."
+else:
+    recommendation = "Sufficient rainfall. Minimal irrigation required."
+
+# Crop-specific adjustment
+if item in ["Rice, paddy"]:
+    recommendation += " Rice requires standing water during early growth stages."
+elif item in ["Wheat", "Maize"]:
+    recommendation += " Ensure irrigation during flowering and grain filling stages."
+
 
 # ❗ Use this ONLY if you trained with log1p(y)
 prediction = np.expm1(prediction)
