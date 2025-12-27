@@ -96,3 +96,5 @@ prediction = np.expm1(prediction)
 # Output
 # -----------------------------
 st.success(f"Predicted Crop Yield: {prediction:.2f} hg/ha")
+st.info(f"Irrigation Recommendation: {recommendation}")
+
