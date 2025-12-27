@@ -72,7 +72,7 @@ input_scaled = scaler.transform(input_df)
 prediction = model.predict(input_scaled)[0]
 
 # ❗ Use this ONLY if you trained with log1p(y)
-# prediction = np.expm1(prediction)
+prediction = np.expm1(prediction)
 
 # -----------------------------
 # Output
