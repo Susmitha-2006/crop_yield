@@ -91,9 +91,11 @@ if st.button("🔍 Predict Crop Yield"):
     log_pred = model.predict(input_scaled)[0]
     prediction = np.expm1(log_pred)  # reverse log1p
 
-    # Generate recommendations
+    # -----------------------------
+    # Generate recommendations only using your function
     recs = generate_recommendations(prediction, rainfall, temp, pesticides)
 
+    # -----------------------------
     # Display results
     st.success(f"🌱 Predicted Crop Yield: {prediction:.2f} hg/ha")
     st.subheader("📌 Recommendations:")
